@@ -1,16 +1,23 @@
-const usuarios = [];
+let usuarios = [];
 
-function inicio() {
-    let opcion;
+function menuDeInicio() {
     do {
-      opcion = prompt("Seleccione una opción:\n1. Registrarse\n2. Iniciar sesión\n3. Salir del sistema");
+      const OPCION = prompt("Seleccione una opción:\n1. Registrarse\n2. Iniciar sesión\n3. Salir del sistema");
+      const EMAIL = prompt("Ingrese su email:");
+      const PASSWORD = prompt("Ingrese su contraseña:");
 
-        switch (opcion) {
+        switch (OPCION) {
             case '1':
-                registrar();
+                for (let usuario of usuarios) {
+                    if (usuario.email === EMAIL) {
+                        alert("El email ya está registrado, Vuelva a intentarlo.");
+                        return;
+                    }
+                }
+                registrarUsuario(EMAIL,PASSWORD);
                 break;
             case '2':
-                ingresar();
+                ingresarSeision(EMAIL,PASSWORD);
                 break;
             case '3':
                 alert("Saliendo del sistema.");
@@ -18,22 +25,11 @@ function inicio() {
             default:
                 alert("Opción no válida, por favor vuelva a intentarlo.");
         }
-    } while (opcion !== '3');
+    } while (OPCION !== '3');
 }
-inicio();
+menuDeInicio();
 
-function registrar() {
-
-    let email = prompt("Ingrese su email:");
-    let password = prompt("Ingrese su contraseña:");
-
-    for (let usuario of usuarios) {
-        if (usuario.email === email) {
-            alert("El email ya está registrado, Vuelva a intentarlo.");
-            return;
-        }
-    }
-
+function registrarUsuario(email,password) {
     let nuevousuario = {
         email: email,
         password: password,
@@ -44,11 +40,7 @@ function registrar() {
     alert("Registro exitoso.");
 }
 
-function ingresar() {
-
-    let email = prompt("Ingrese su email:");
-    let password = prompt("Ingrese su contraseña:");
-
+function ingresarSeision() {
     for (let usuario of usuarios) {
         if (usuario.email === email && usuario.password === password) {
             alert("Bienvenido al sistema.");
@@ -56,19 +48,17 @@ function ingresar() {
             return;
         }
     }
-
     alert("Usuario o contraseña incorrectos. Vuelva a intentarlo");
 }
 
 function gestiondeproductos(usuario) {
-    let opcion;
     do {
-        opcion = prompt("Seleccione una opción:\n1. Agregar producto\n2. Consultar productos\n3. Cerrar sesión");
+        const OPCION = prompt("Seleccione una opción:\n1. Agregar producto\n2. Consultar productos\n3. Cerrar sesión");
 
-        switch (opcion) {
+        switch (OPCION) {
             case '1':
-                let producto = prompt("Ingrese el nombre del producto que desea agregar:");
-                usuario.productos.push(producto);
+                const PRODUCTO = prompt("Ingrese el nombre del producto que desea agregar:");
+                usuario.productos.push(PRODUCTO);
                 alert("Producto agregado.");
                 break;
             case '2':
@@ -84,7 +74,7 @@ function gestiondeproductos(usuario) {
             default:
                 alert("Opción no válida. Vuelva a intentarlo");
         }
-    } while (opcion !== '3');
+    } while (OPCION !== '3');
 }
 
 
